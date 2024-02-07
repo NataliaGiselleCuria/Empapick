@@ -23,10 +23,34 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    background-image: url('empafondo1.png');
-    background-size:cover;
+    background-image: url(img/fondo.png);
+    background-size:auto;
+    background-size: 20%;
+    animation: mymove 5s ease-in 5s infinite alternate;
     
 }
+
+@keyframes mymove {
+    0% {
+        background-color: var(--shadow);
+      }
+      50% {
+        background-color: #cf27b048;
+      }
+      60% {
+        background-color: var(--shadow);
+      }
+      90% {
+        background-color: #cf27b048;
+      }
+      100% {
+        background-color: var(--shadow);
+      }
+}
+
+
+
+
 #border{
     width: 80%;
     height: 85vh;
