@@ -143,7 +143,7 @@ h4{
 
 /* Pantalla 1 */ 
 
-#inicio, #pantalla-1, #seleccionEmpa, #seleccionPizza, #resumen-detalle{
+#inicio, #transition, #pantalla-1, #seleccionEmpa, #seleccionPizza, #resumen-detalle{
     height: 100%;
     width: 90%;
     margin: auto;
@@ -151,11 +151,11 @@ h4{
     flex-direction: column;
     gap: 35px;
     padding: 5% 0; 
-    transition: 1s ease-in-out;
+    transition: 0.5s ease-in-out;
     opacity: 0;
 }
 
-#pantalla-1, #seleccionEmpa, #seleccionPizza, #resumen-detalle{
+#transition, #pantalla-1, #seleccionEmpa, #seleccionPizza, #resumen-detalle{
     display: none;
     gap: 0;
 }
@@ -183,7 +183,7 @@ h4{
     }   
 }
 
-#transition{
+/* #transition{
     display: none;
     position: absolute;
     align-items: center;
@@ -196,7 +196,7 @@ h4{
     overflow: auto;
     transition: 1s ease-in-out;
     opacity: 0;
-}
+} */
 
 #transition i{
     margin-bottom: 80px;

@@ -16,7 +16,6 @@ let requeridoe = document.getElementsByClassName("requerido-e")[0];
 
 // transition 1 (empanadas)
 
-let pantallaTransition = document.getElementById("transition");
 let main = document.querySelector('.main');
 let transition1 = document.getElementById("transition-empa");
 let cantComensalesEmpa = document.getElementById("cant-comensales-empa");
@@ -174,20 +173,17 @@ function habilitarSiguiente(){
 function transition(x){
 
     pantalla1.style.opacity="0";
-    pantallaTransition.style.display="flex";
-    setTimeoutOpacity(pantallaTransition,1,1000);
-    setTimeoutOpacity(pantallaTransition,0,2500);
 
-     setTimeout(function() {  
+    setTimeout(function() {  
         
         pantalla1.style.display = "none";
 
         if(x == "2Bis"){
             seleccionEmpanadas.style.display = "none";
             transition2.style.display = "flex";
-            setTimeoutOpacity(transition2,1,1500);
+            setTimeoutOpacity(transition2,1,1000);
             seleccionPizzas.style.display = "flex";
-            setTimeoutOpacity(seleccionPizzas,1,1500);
+            setTimeoutOpacity(seleccionPizzas,1,1000);
             seleccionPizzas.style.filter = "blur(4px)";
             seleccionPizza.scrollIntoView({behavior: 'smooth'}, true);
 
@@ -198,28 +194,24 @@ function transition(x){
             if(!checkPizza.checked && checkEmpanada.checked){
 
                 seleccionEmpanadas.style.display = "flex";
-                setTimeoutOpacity(seleccionEmpanadas,1,1500);
+                setTimeoutOpacity(seleccionEmpanadas,1,1000);
                 seleccionEmpanadas.scrollIntoView({behavior: 'smooth'}, true);
 
             } else if(checkPizza.checked && !checkEmpanada.checked){
                 seleccionPizzas.style.display = "flex";
-                setTimeoutOpacity(seleccionPizzas,1,1500);
+                setTimeoutOpacity(seleccionPizzas,1,1000);
                 seleccionPizzas.scrollIntoView({behavior: 'smooth'}, true);
 
             } else {
                 transition1.style.display = "flex";
-                setTimeoutOpacity(transition1,1,1500);
+                setTimeoutOpacity(transition1,1,1000);
                 seleccionEmpanadas.style.display = "flex";
-                setTimeoutOpacity(seleccionEmpanadas,1,1500);
+                setTimeoutOpacity(seleccionEmpanadas,1,1000);
                 seleccionEmpanadas.style.filter = "blur(4px)";
             }
         }
 
-    }, 2500);
-
-    setTimeout(function() { 
-        pantallaTransition.style.display="none";
-    }, 3500);
+    }, 500);
 
 }
 
