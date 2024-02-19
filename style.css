@@ -135,8 +135,7 @@ h4{
 .main{
     height: 100%;
     display: flex;
-    flex-direction: column;
-    padding-bottom: 300px;
+    flex-direction: row;
     overflow: auto;
     text-align: center;
     background-color: var(--backgroundcolor); 
@@ -144,14 +143,80 @@ h4{
 
 /* Pantalla 1 */ 
 
-#pantalla-1, #seleccionEmpa, #seleccionPizza{
+#inicio, #pantalla-1, #seleccionEmpa, #seleccionPizza, #resumen-detalle{
     height: 100%;
     width: 90%;
     margin: auto;
     display: flex;
     flex-direction: column;
     gap: 35px;
-    padding: 5% 0;
+    padding: 5% 0; 
+    transition: 1s ease-in-out;
+    opacity: 0;
+}
+
+#pantalla-1, #seleccionEmpa, #seleccionPizza, #resumen-detalle{
+    display: none;
+    gap: 0;
+}
+
+#inicio{
+    transition: 2s ease-in-out;
+    font-size: xx-large;
+    justify-content: center;
+    align-items: center;
+}
+
+#inicio div {
+    margin-bottom: 100px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: ini-font 3s;
+}
+
+@keyframes ini-font {
+    
+    from{
+        letter-spacing: 10px;
+    }to{
+        letter-spacing: 1px;
+    }   
+}
+
+#transition{
+    display: none;
+    position: absolute;
+    align-items: center;
+    font-size: 5rem;
+    top: 219.3px;
+    right: 660px;
+    height: 68.6%;
+    width: 600px;
+    background-color: var(--backgroundcolor);
+    overflow: auto;
+    transition: 1s ease-in-out;
+    opacity: 0;
+}
+
+#transition i{
+    margin-bottom: 80px;
+    margin-left: 255px;
+    animation: pulsate-transition 5s 1s infinite alternate;  
+}
+
+#transition i:hover{
+    color: white;
+}
+
+@keyframes pulsate-transition {
+    
+    0%, 10% {
+        text-shadow: 0 0 1px #fff, 0 0 1px #fff, 0 0 9px #fff, 0 0 0px var(--border), 0 0 0px var(--border), 0 0 0px var(--border), 0 0 10px var(--border), 0 0 150px var(--border);
+    }
+    
+    20%, 24%, 55% {        
+        text-shadow: none;
+    }    
 }
 
 .number.pantalla1{
@@ -311,7 +376,7 @@ div#user {
 .button {
     cursor: pointer;
     display: flex;
-    margin: 0 auto;
+    margin: 30px auto;
     font-family: 'Orbitron', sans-serif;
     font-size: 1rem;
     letter-spacing: 1.5px;
@@ -338,6 +403,7 @@ div#user {
     margin-left: 142px;
     height: 68%;
     z-index: 1;
+    opacity: 0;
 }
 
 .transtion-cont {
@@ -367,11 +433,6 @@ div#user {
 }
 
 /* Pantalla 2 y 2Bis*/
-
-#seleccionEmpa, #seleccionPizza{
-    display: none;
-    gap: 0;
-}
 
 .cant-comensales-empa {
     position: absolute;
@@ -413,9 +474,9 @@ border: 1px solid var(--backgroundcolor);
 transition: background-color 5000s ease-in-out 0s;
 }
 
-/* ul {
-    padding: 5% 0;
-} */
+#sabores-E, #sabores-P, .resumen-comensales{
+    margin: 25px 0;
+}
 
 ul.total{
     padding: 0;
@@ -505,6 +566,7 @@ span.button-sig-2 {
     margin-bottom: 10px;
 }
 
+/* resumen */
 
 #resumen{
     display: none;
@@ -547,19 +609,57 @@ h3{
     font-size: 1.2rem;
     border-top: unset;
     padding: 0;
+    margin: 0;
 }
 
 input.n-resumen{
-    width: 100px;
+    width: 70px;
 }
 
 ul.resumen-comensales li:first-of-type{
     display: none;
 }
 
+/* resumen detalle */
+
+#ver-resumen, #volver{
+    margin-top: 50px;
+}
+
+#resumen-detalle{
+    gap: 15px;
+}
+
+#resumen-detalle .h3{
+ font-size: 1.3rem;
+ margin-bottom: 10px;
+}
+
+#detalle-cont ul {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #9b7194;
+}
+
+#detalle-cont img{
+    height: 35px;
+    margin-left: 20px;
+}
+
+#detalle-cont .fa-solid{
+    width: 70px;
+    text-align: center;
+}
+
+#detalle-cont .fa-check {
+    color: var(--focus);
+}
+
+
+
 ::-webkit-scrollbar {
     background-color: var(--backgroundcolor);
-    width: 10px;
+    width: 1px;
 }
 
 ::-webkit-scrollbar-thumb {

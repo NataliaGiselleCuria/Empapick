@@ -16,10 +16,16 @@
     <div id="border">
       <div id="container">
         <header id="header">
-          <h1>EMPA-PICK<a class="meteor"><i class="fa-solid fa-meteor"></i></a></h1>
-          <h4 id="h4">choose your empanadas with fren2</h4><!--descripcion de la app-->
+          <h1>EMPA-PICK<a class="meteor" ><i class="fa-solid fa-meteor"></i></a></h1>
         </header>
-        <main class="main">
+        <main class="main"> 
+          <section id="inicio">
+            <div>
+              <p>pick</p>
+              <p>split</p>
+              <p>enjoy</p>
+            </div>
+          </section>
           <!--pantalla 1-->
           <section id="pantalla-1">
             <div class="pregunta">
@@ -298,7 +304,17 @@
               <label></label><span><input class="number"></span>
             </ul>
           </div>
+          <button id="ver-resumen" class="button" onclick="verDetalleResumen()">Ver más detalles</button>
         </section>
+        <section id="resumen-detalle">
+          <div id="detalle-cont">
+
+          </div>
+          <button id="volver" class="button" onclick="volver()">Volver</button>
+        </section>
+        <section id="transition">
+          <i class="fa-solid fa-meteor"></i>
+        </section> 
         </main>
       </div>
     </div>
