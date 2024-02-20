@@ -15,10 +15,11 @@
 }
 
 html {
-    height: 100dvh;
+    height: 100svh;
     font-family: 'Montserrat', sans-serif !important;
     color:white;
     text-shadow: 4px 3px 2px var(--shadow);
+    
 }
 
 body {
@@ -32,12 +33,14 @@ body {
 
 .back{
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
+    margin: auto;
     display: flex;
     background-image: url(img/fondo.png);
     background-size:auto;
     background-size: 20%;
     animation: mymove 15s ease-in 5s infinite alternate;
+    overflow: hidden;
 }
 
 @keyframes mymove {
@@ -145,7 +148,7 @@ h4{
 /* Pantalla 1 */ 
 
 #inicio, #transition, #pantalla-1, #seleccionEmpa, #seleccionPizza, #resumen, #resumen-detalle{
-    height: 100%;
+    /* height: 80svh; */
     width: 90%;
     margin: auto;
     display: flex;
@@ -215,6 +218,7 @@ h4{
     font-size: var(--font1);
     letter-spacing: 1px;
     font-family: 'Chakra Petch', sans-serif;
+    gap: 15px;
 }
 
 .pregunta div {
@@ -222,7 +226,6 @@ h4{
     width: 30%;
     margin: auto;
     justify-content: space-around;
-    padding: 15px 0;
     align-items: center
 }
 
@@ -515,10 +518,6 @@ button.custom-button {
     margin-bottom: 30px;
 }
 
-span.button-sig-2 {
-    padding-bottom: 25px;
-}
-
 /* transition 2 (pizzas)*/
 
 #li-comensales {
@@ -617,6 +616,7 @@ ul.resumen-comensales li:first-of-type{
 /* resumen detalle */
 
 #resumen-detalle{
+    height: 85svh;
     gap: 15px;
 }
 
@@ -664,15 +664,11 @@ border-radius: 10px;
 
     #border {
         width: 90%;
-        height: 90vh;
+        height: 85vh;
     }
 
     .back{
-        background-size: 30%;
-    }
-
-    #pantalla-1 {
-        gap: 0px;
+        background-size: 50%;
     }
 
     h1{
@@ -702,12 +698,9 @@ border-radius: 10px;
 }
 
 @media (max-width: 500px){
+
     .precios {
         width: 100%;
-    }
-
-    .pregunta{
-        padding-top: 20px;
     }
 
     .empanadas{
@@ -727,7 +720,7 @@ border-radius: 10px;
         font-size: medium;
     }
     
-    input.number.empanada {
+    input.number.empanada, .number.pizza {
         width: 45px;
     }
 
