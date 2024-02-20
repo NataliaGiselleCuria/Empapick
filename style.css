@@ -23,7 +23,7 @@ html {
 
 body {
     min-width: 300px;
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     justify-content: center;
     background-image: url(img/outerspace-70.gif);
@@ -191,7 +191,7 @@ h4{
 }
 
 #pantalla-1{
-   justify-content: space-evenly;
+   gap: 20px;
 }
 
 @keyframes pulsate-transition {
@@ -222,7 +222,7 @@ h4{
     width: 30%;
     margin: auto;
     justify-content: space-around;
-    padding: 20px 0;
+    padding: 15px 0;
     align-items: center
 }
 
@@ -616,10 +616,6 @@ ul.resumen-comensales li:first-of-type{
 
 /* resumen detalle */
 
-#ver-resumen, #volver{
-    margin-top: 50px;
-}
-
 #resumen-detalle{
     gap: 15px;
 }
@@ -662,6 +658,10 @@ border-radius: 10px;
 }
 
 @media (max-width: 645px) {
+    :root{
+     --font1: 1.2rem;
+    }
+
     #border {
         width: 90%;
         height: 90vh;
@@ -671,13 +671,17 @@ border-radius: 10px;
         background-size: 30%;
     }
 
+    #pantalla-1 {
+        gap: 0px;
+    }
+
     h1{
         font-size: 10vw;
     }
 
-    h4{
-        display: none;
-    } 
+    img {
+        height: 60px;
+    }
 
     .transition{
         height: 68%;
@@ -685,9 +689,6 @@ border-radius: 10px;
         margin: 0;
     }
 
-    #pantalla-1{
-        justify-content: unset;
-    }
 }
 
 @media (max-width: 600px) {
