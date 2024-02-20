@@ -23,7 +23,7 @@ html {
 
 body {
     min-width: 300px;
-    min-height: 90vh;
+    height: 100svh;
     display: flex;
     justify-content: center;
     background-image: url(img/outerspace-70.gif);
@@ -665,7 +665,6 @@ border-radius: 10px;
     #border {
         width: 90%;
         height: 90vh;
-        margin: 5% auto;
     }
 
     .back{
