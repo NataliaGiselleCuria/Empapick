@@ -163,6 +163,7 @@ h4{
 #inicio{
     transition: 2s ease-in-out;
     font-size: xx-large;
+    color: #3fd960;
     justify-content: center;
     align-items: center;
 }
@@ -187,21 +188,6 @@ h4{
         letter-spacing: 1px;
     }   
 }
-
-/* #transition{
-    display: none;
-    position: absolute;
-    align-items: center;
-    font-size: 5rem;
-    top: 219.3px;
-    right: 660px;
-    height: 68.6%;
-    width: 600px;
-    background-color: var(--backgroundcolor);
-    overflow: auto;
-    transition: 1s ease-in-out;
-    opacity: 0;
-} */
 
 #transition i{
     margin-bottom: 80px;
@@ -247,7 +233,7 @@ h4{
 
 .selec-prod {
     width: 80%;  
-    margin: auto;
+    align-self: center;
     font-size: var(--font1);
     display: flex;
     flex-direction: column;
@@ -683,12 +669,16 @@ border-radius: 10px;
     }
 
     h1{
-        font-size: 350%;
+        font-size: 10vw;
     }
 
     h4{
         display: none;
-    }   
+    } 
+    
+    .precios {
+        width: 100%;
+    }
 
     .transition{
         height: 68%;
@@ -702,9 +692,6 @@ border-radius: 10px;
         height: 100px;
     }
     
-    h1{
-        font-size: 250%;
-    }
     li{
         font-size: 1.3rem;
     }
