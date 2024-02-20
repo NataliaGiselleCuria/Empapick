@@ -15,6 +15,7 @@
 }
 
 html {
+    height: 100dvh;
     font-family: 'Montserrat', sans-serif !important;
     color:white;
     text-shadow: 4px 3px 2px var(--shadow);
@@ -189,14 +190,8 @@ h4{
     }   
 }
 
-#transition i{
-    margin-bottom: 80px;
-    margin-left: 255px;
-    animation: pulsate-transition 5s 1s infinite alternate;  
-}
-
-#transition i:hover{
-    color: white;
+#pantalla-1{
+   justify-content: space-evenly;
 }
 
 @keyframes pulsate-transition {
@@ -684,6 +679,10 @@ border-radius: 10px;
         height: 68%;
         width: 90%;
         margin: 0;
+    }
+
+    #pantalla-1{
+        justify-content: unset;
     }
 }
 
