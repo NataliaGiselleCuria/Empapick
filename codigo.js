@@ -81,15 +81,15 @@ function setTimeoutOpacity(pantalla,opacity,tiempo){
 }
 
 function inicio(){
-    setTimeoutOpacity(ini,1,500)
-    setTimeoutOpacity(ini,0,3000)
+    setTimeoutOpacity(ini,1,10)
+    setTimeoutOpacity(ini,0,2000)
    
     setTimeout(function() { 
         pantalla1.style.display="flex";    
         ini.style.display="none";
-    }, 5000);
+    }, 3500);
     
-    setTimeoutOpacity(pantalla1,1,5500)
+    setTimeoutOpacity(pantalla1,1,4000)
 
 }
 
@@ -179,15 +179,18 @@ function transition(x){
         pantalla1.style.display = "none";
 
         if(x == "2Bis"){
-            seleccionEmpanadas.style.display = "none";
-            transition2.style.display = "flex";
-            setTimeoutOpacity(transition2,1,500);
-            seleccionPizzas.style.display = "flex";
-            setTimeoutOpacity(seleccionPizzas,1,500);
-            seleccionPizzas.style.filter = "blur(4px)";
-            seleccionPizza.scrollIntoView({behavior: 'smooth'}, true);
+            seleccionEmpanadas.style.opacity="0";
+            setTimeout(function() {  
+                seleccionEmpanadas.style.display = "none";
+                transition2.style.display = "flex";
+                setTimeoutOpacity(transition2,1,500);
+                seleccionPizzas.style.display = "flex";
+                setTimeoutOpacity(seleccionPizzas,1,500);
+                seleccionPizzas.style.filter = "blur(4px)";
+                seleccionPizza.scrollIntoView({behavior: 'smooth'}, true);
 
-            rellenarComensales();
+                rellenarComensales();
+            }, 500);
 
         }else{
 
@@ -250,6 +253,8 @@ function bucleEmpa(el){
 
         if (cantComensales.value == 0) {
             setFinalizar();
+        }else{
+            scrollToTop();
         }
 
     } else{
@@ -257,10 +262,12 @@ function bucleEmpa(el){
 
         if (cantComensalesEmpa.value == 0) {
             transition("2Bis");
+        }else{
+            scrollToTop();
         }
+   
     }
 
-    scrollToTop();
 }
 
 function scrollToTop(){
@@ -471,30 +478,36 @@ function rellenoPedido(el){
 }
 
 function setFinalizar() {
-    seleccionEmpanadas.style.display="none";
-    seleccionPizzas.style.display="none";
-    resumen.style.display = "flex";
+    seleccionEmpanadas.style.opacity="0";
+    seleccionPizzas.style.opacity="0";
 
-    if(checkEmpanada.checked){
-        listaFinalE = resumenPedido[0].listaEmpanadas
+    setTimeout(function() { 
+        seleccionEmpanadas.style.display="none";
+        seleccionPizzas.style.display="none";
+        resumen.style.display = "flex";
+        setTimeoutOpacity(resumen,1,500);
 
-        for (let i = 1; i < resumenPedido.length; i++) {
-            const empanadas = resumenPedido[i].listaEmpanadas;
-            for (let index = 0; index < empanadas.length; index++) {
-                if(listaFinalE[index]==undefined){
-                    listaFinalE.push(empanadas[index]);
-                }else{
-                    listaFinalE[index].cantidad = parseInt(empanadas[index].cantidad, 10) + parseInt(listaFinalE[index].cantidad, 10);
-                }
-            };
+        if(checkEmpanada.checked){
+            listaFinalE = resumenPedido[0].listaEmpanadas
+
+            for (let i = 1; i < resumenPedido.length; i++) {
+                const empanadas = resumenPedido[i].listaEmpanadas;
+                for (let index = 0; index < empanadas.length; index++) {
+                    if(listaFinalE[index]==undefined){
+                        listaFinalE.push(empanadas[index]);
+                    }else{
+                        listaFinalE[index].cantidad = parseInt(empanadas[index].cantidad, 10) + parseInt(listaFinalE[index].cantidad, 10);
+                    }
+                };
+            }
+        
+            ListaFinalClean = listaFinalE.filter(empanadas => empanadas.cantidad > 0);
         }
-    
-        ListaFinalClean = listaFinalE.filter(empanadas => empanadas.cantidad > 0);
-    }
 
+        pantalla3();
+
+    }, 500);
    
-    pantalla3();
-
 }
 
 //Pantalla 3
@@ -570,7 +583,7 @@ function pantalla3(){
     resumenPedido.forEach(element => {
         const itemComensal = document.createElement('LI');
         itemComensal.classList.add("li-resumen")
-        itemComensal.innerHTML = '<label>'+element.nombre+'</label><span><p>$</p><input type="number" class="number n-resumen" value="'+element.totalPagar+'"></span>'.trim();
+        itemComensal.innerHTML = '<label>'+element.nombre+'</label><span><p>$</p><input type="number" class="number n-resumen re-total" value="'+element.totalPagar+'"></span>'.trim();
         fragmento.appendChild(itemComensal)
     });
 
@@ -578,56 +591,69 @@ function pantalla3(){
 
     const itemTotal = document.createElement('LI');
     itemTotal.classList.add("li-resumen")
-    itemTotal.innerHTML = '<label><h3 class="totalh3">TOTAL A PAGAR</h3></label><span><p>$</p><input type="number" class="number n-resumen" value="'+totalFinalPagar+'"></span>'.trim();
+    itemTotal.innerHTML = '<label><h3 class="totalh3">TOTAL A PAGAR</h3></label><span><p>$</p><input type="number" class="number n-resumen re-total" value="'+totalFinalPagar+'"></span>'.trim();
     contenedortotal.appendChild(itemTotal);
 }
 
 function verDetalleResumen(){
-    resumen.style.display="none";
-    detalleResumen.style.display="flex";
-    detalleResumen.scrollIntoView({behavior: 'smooth'}, true);
+    
+    resumen.style.opacity="0"
+    
+    setTimeout(function() { 
 
-    resumenPedido.forEach(pedidoComensal => {
-       const nombre = document.createElement('H3');
-       nombre.classList.add("h3");
-       nombre.classList.add("resumen");
-       nombre.innerText=pedidoComensal.nombre;
+        resumen.style.display="none";
+        detalleResumen.style.display="flex";
+        setTimeoutOpacity(detalleResumen,1, 500)
+        detalleResumen.scrollIntoView({behavior: 'smooth'}, true);
 
-       const ulPedido = document.createElement('UL');
+        resumenPedido.forEach(pedidoComensal => {
+        const nombre = document.createElement('H3');
+        nombre.classList.add("h3");
+        nombre.classList.add("resumen");
+        nombre.innerText=pedidoComensal.nombre;
 
-        pedidoComensal.listaEmpanadas.forEach(empanada => {
-            if(empanada.cantidad!=0){
-                const liEmpanada = document.createElement('LI');
-                liEmpanada.classList.add("li-resumen");
-                liEmpanada.innerHTML = '<label>'+ empanada.nombre +'</label><span><input type="number" class="number n-resumen" value="'+ empanada.cantidad +'"></span>'.trim();
-                ulPedido.appendChild(liEmpanada);
+        const ulPedido = document.createElement('UL');
+
+            pedidoComensal.listaEmpanadas.forEach(empanada => {
+                if(empanada.cantidad!=0){
+                    const liEmpanada = document.createElement('LI');
+                    liEmpanada.classList.add("li-resumen");
+                    liEmpanada.innerHTML = '<label>'+ empanada.nombre +'</label><span><input type="number" class="number n-resumen" value="'+ empanada.cantidad +'"></span>'.trim();
+                    ulPedido.appendChild(liEmpanada);
+                }
+            });
+
+            if(pedidoComensal.comensaleP){
+                const liPizza = document.createElement('LI');
+                liPizza.classList.add("li-resumen");
+                liPizza.innerHTML = '<label><img src="img/pizza-active.png" alt="icono de pizza"></label class="n-resumen"><span class="re-check"><i class="fa-solid fa-check"></i></span>';
+                ulPedido.appendChild(liPizza);
+
+            }else{
+                const liPizza = document.createElement('LI');
+                liPizza.classList.add("li-resumen");
+                liPizza.innerHTML = '<label><img src="img/pizza.png" alt="icono de pizza"></label class="n-resumen"></label><span class="re-check"><i class="fa-solid fa-xmark"></i></i></span>';
+                ulPedido.appendChild(liPizza);
             }
+
+            detalleCont.appendChild(nombre);
+            detalleCont.appendChild(ulPedido);
         });
-
-        if(pedidoComensal.comensaleP){
-            const liPizza = document.createElement('LI');
-            liPizza.classList.add("li-resumen");
-            liPizza.innerHTML = '<label><img src="img/pizza-active.png" alt="icono de pizza"></label><span><i class="fa-solid fa-check"></i></span>';
-            ulPedido.appendChild(liPizza);
-
-        }else{
-            const liPizza = document.createElement('LI');
-            liPizza.classList.add("li-resumen");
-            liPizza.innerHTML = '<label><img src="img/pizza.png" alt="icono de pizza"></label></label><span><i class="fa-solid fa-xmark"></i></i></span>';
-            ulPedido.appendChild(liPizza);
-        }
-
-        detalleCont.appendChild(nombre);
-        detalleCont.appendChild(ulPedido);
-    });
+    }, 500);
 }
 
 function volver(){
-    detalleResumen.style.display="none";
-    resumen.style.display="flex";
-    resumen.scrollIntoView({behavior: 'smooth'}, true);
+   
+    detalleResumen.style.opacity="0";
+    
+    setTimeout(function() { 
+        detalleResumen.style.display="none";
+        resumen.style.display="flex";
+        setTimeoutOpacity(resumen,1,500)
+        resumen.scrollIntoView({behavior: 'smooth'}, true);
 
-    while (detalleCont.firstChild) {
-        detalleCont.removeChild(detalleCont.firstChild);
-    }
+        while (detalleCont.firstChild) {
+            detalleCont.removeChild(detalleCont.firstChild);
+        }
+    }, 500);
 }

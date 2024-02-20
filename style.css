@@ -144,7 +144,7 @@ h4{
 
 /* Pantalla 1 */ 
 
-#inicio, #transition, #pantalla-1, #seleccionEmpa, #seleccionPizza, #resumen-detalle{
+#inicio, #transition, #pantalla-1, #seleccionEmpa, #seleccionPizza, #resumen, #resumen-detalle{
     height: 100%;
     width: 90%;
     margin: auto;
@@ -156,7 +156,7 @@ h4{
     opacity: 0;
 }
 
-#transition, #pantalla-1, #seleccionEmpa, #seleccionPizza, #resumen-detalle{
+#transition, #pantalla-1, #seleccionEmpa, #seleccionPizza, #resumen, #resumen-detalle{
     display: none;
     gap: 0;
 }
@@ -285,7 +285,10 @@ input[type="checkbox"]:checked {
 .precios span {    
     width: 90%;
     gap: 5px;
+    justify-content:  flex-start;
 }
+
+
 
 .precios span img {
     height: 40px;
@@ -300,10 +303,15 @@ input[type="checkbox"]:checked {
     display: flex;
     flex-direction: row;
     gap: 5px;
+    width: 30%;
 }
 
 .precios span div span{
     color: #515151;
+}
+
+span.\$ {
+    width: fit-content;
 }
 
 input.number{
@@ -333,7 +341,7 @@ input[type="number"] {
 }
 
 input.precio{
-    width: 55px;
+    width: -webkit-fill-available!important;
     font-size: 1.6rem;
     margin: 2px;
 }
@@ -598,8 +606,8 @@ h3{
     margin: 0;
 }
 
-input.n-resumen{
-    width: 70px;
+input.n-resumen, .re-check{
+    width: 120px;
 }
 
 ul.resumen-comensales li:first-of-type{
@@ -633,7 +641,7 @@ ul.resumen-comensales li:first-of-type{
 }
 
 #detalle-cont .fa-solid{
-    width: 70px;
+    width: 100%;
     text-align: center;
 }
 
@@ -670,10 +678,6 @@ border-radius: 10px;
     h4{
         display: none;
     } 
-    
-    .precios {
-        width: 100%;
-    }
 
     .transition{
         height: 68%;
@@ -697,25 +701,54 @@ border-radius: 10px;
 }
 
 @media (max-width: 500px){
+    .precios {
+        width: 100%;
+    }
+
     .pregunta{
         padding-top: 20px;
     }
+
     .empanadas{
         width: 30px;
         font-size: 1.8rem;
     }
+
+    label.label-empanada {
+        width: 65%;
+    }
+
+    input#custom-nombre {
+        width: 100%;
+    }
+
+    input#custom-nombre::placeholder {
+        font-size: medium;
+    }
     
-    input.n-resumen{
+    input.number.empanada {
+        width: 45px;
+    }
+
+    input.n-resumen, .re-check{
         font-size: 1.5rem;
+        width: 50px;
+        text-align-last: center;
+    }
+
+    .re-total{
+        width: 90px!important;
     }
     
     input.pantalla1{
         width: 90px
     }
+
     li{
         font-size: 1.2rem;
         padding: 3px 0;
     }
+
     .mas:not(.pantalla1), .menos:not(.pantalla1){
         height: 25px;
         width: 25px;
