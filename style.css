@@ -665,6 +665,7 @@ border-radius: 10px;
     #border {
         width: 90%;
         height: 90vh;
+        margin: 5% auto;
     }
 
     .back{
