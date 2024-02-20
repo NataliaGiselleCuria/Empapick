@@ -181,9 +181,9 @@ function transition(x){
         if(x == "2Bis"){
             seleccionEmpanadas.style.display = "none";
             transition2.style.display = "flex";
-            setTimeoutOpacity(transition2,1,1000);
+            setTimeoutOpacity(transition2,1,500);
             seleccionPizzas.style.display = "flex";
-            setTimeoutOpacity(seleccionPizzas,1,1000);
+            setTimeoutOpacity(seleccionPizzas,1,500);
             seleccionPizzas.style.filter = "blur(4px)";
             seleccionPizza.scrollIntoView({behavior: 'smooth'}, true);
 
@@ -194,19 +194,19 @@ function transition(x){
             if(!checkPizza.checked && checkEmpanada.checked){
 
                 seleccionEmpanadas.style.display = "flex";
-                setTimeoutOpacity(seleccionEmpanadas,1,1000);
+                setTimeoutOpacity(seleccionEmpanadas,1,500);
                 seleccionEmpanadas.scrollIntoView({behavior: 'smooth'}, true);
 
             } else if(checkPizza.checked && !checkEmpanada.checked){
                 seleccionPizzas.style.display = "flex";
-                setTimeoutOpacity(seleccionPizzas,1,1000);
+                setTimeoutOpacity(seleccionPizzas,1,500);
                 seleccionPizzas.scrollIntoView({behavior: 'smooth'}, true);
 
             } else {
                 transition1.style.display = "flex";
-                setTimeoutOpacity(transition1,1,1000);
+                setTimeoutOpacity(transition1,1,500);
                 seleccionEmpanadas.style.display = "flex";
-                setTimeoutOpacity(seleccionEmpanadas,1,1000);
+                setTimeoutOpacity(seleccionEmpanadas,1,500);
                 seleccionEmpanadas.style.filter = "blur(4px)";
             }
         }
