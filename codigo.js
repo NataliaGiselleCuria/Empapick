@@ -302,7 +302,11 @@ function rellenarComensales(){
     if (comensales.length<cantComensales.value){
         dif =  (cantComensales.value)-(comensales.length);
 
-        difComensales.innerText= "Me faltan " + dif +" gorditos que comen pizza, ¿no?";
+        if (dif === 1) {
+        difComensales.innerText = "Me falta " + dif + " persona que come pizza, ¿no?";
+        } else {
+            difComensales.innerText = "Me faltan " + dif + " personas que comen pizza, ¿no?";
+        }
 
         while(dif!=0){
             let itemNom = document.createElement('LI');
