@@ -1,0 +1,37 @@
+{
+    "empanadas": [
+      { "nombre": "Carne suave" },
+      { "nombre": "Carne a cuchillo" },
+      { "nombre": "Carne picante" },
+      { "nombre": "Pollo" },
+      { "nombre": "Pollo con salsa blanca" },
+      { "nombre": "Pollo con champignon" },
+      { "nombre": "Pollo al verdeo" },
+      { "nombre": "Jamón y queso" },
+      { "nombre": "Queso y cebolla" },
+      { "nombre": "Cuatro quesos" },
+      { "nombre": "Humita" },
+      { "nombre": "Verdura" },
+      { "nombre": "Calabaza" },
+      { "nombre": "Roquefort" },
+      { "nombre": "Atún" },
+      { "nombre": "Capresse" },
+      { "nombre": "Panceta y ciruela" },
+      { "nombre": "Salchichas y cheddar" }
+    ],
+    "pizzas": [
+      { "nombre": "Muzzarella" },
+      { "nombre": "Napolitana" },
+      { "nombre": "Jamón" },
+      { "nombre": "Jamón y Morrones" },
+      { "nombre": "Fugazza" },
+      { "nombre": "Fugazzetta" },
+      { "nombre": "Roquefort" },
+      { "nombre": "Calabresa" },
+      { "nombre": "Capresse" },
+      { "nombre": "Cuatro Quesos" },
+      { "nombre": "Provolone" },
+      { "nombre": "Huevo" },
+      { "nombre": "Palmitos" }
+    ]
+  }

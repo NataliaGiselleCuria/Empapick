@@ -8,6 +8,8 @@ let checkEmpanada=document.getElementById("check-empa");
 let checkPizza = document.getElementById("check-pizza");
 let valorEmpanada=document.getElementById("valorEmpanada");
 let valorPizza = document.getElementById("valorPizza");
+let sumarComensal = document.querySelector('.mas.pantalla1');
+let restarComensal = document.querySelector('.menos.pantalla1');
 valorEmpanada.addEventListener('keyup', habilitarSiguiente);
 valorPizza.addEventListener('keyup', habilitarSiguiente);
 let buttonSig1 = document.getElementsByClassName("button-sig-1");
@@ -47,7 +49,8 @@ let detalleCont = document.getElementById("detalle-cont");
 
 //objetos
 
-function PedidoComensal (nombre, listaEmpanadas, totalEmpanadas, comensaleP, totalPagar){
+function PedidoComensal (id, nombre, listaEmpanadas, totalEmpanadas, comensaleP, totalPagar){
+    this.id = id;
     this.nombre = nombre;
     this.listaEmpanadas = listaEmpanadas;
     this.totalEmpanadas = totalEmpanadas;
@@ -65,12 +68,57 @@ function Pizza(nombre, cantidad){
     this.cantidad = cantidad;
 }
 
+let idCounter = 0;
 let comensales=[];
 let resumenPedido=[];
 let listaFinalE =[Empanada];
 let listaFinalP = [Pizza];
 let totalFinalPagar = 0;
 let ListaFinalClean=[];
+
+
+async function cargarSabores() {
+    try {
+        const response = await fetch('sabores.json');
+        const data = await response.json();
+        const cargarSaboresEmpa = document.getElementById('cargar-sabores-e');
+        const cargarSaboresPizza = document.getElementById('cargar-sabores-p');
+
+        data.empanadas.forEach(sabor => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <label class="label-empanada">${sabor.nombre}</label>
+                <span>
+                    <button type="button" class="menos"><i class="fa-solid fa-minus"></i></button>
+                    <input class="number empanada" name="${sabor.nombre}" type="number" value="0" readonly>
+                    <button class="mas" type="button"><i class="fa-solid fa-plus"></i></button>
+                </span>
+            `;
+            cargarSaboresEmpa.appendChild(li);
+        });
+
+        data.pizzas.forEach(sabor => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <label class="label-pizza">${sabor.nombre}</label>
+                <span>
+                    <button type="button" class="menos"><i class="fa-solid fa-minus"></i></button>
+                    <input class="number pizza" name="${sabor.nombre}" type="number" value="0" readonly>
+                    <button class="mas" type="button"><i class="fa-solid fa-plus"></i></button>
+                </span>
+            `;
+            cargarSaboresPizza.appendChild(li);
+        });
+
+    } catch (error) {
+        console.error('Error al cargar sabores:', error);
+    }
+
+    agregarEventos();
+}
+
+// Cargar los sabores cuando se carga la página
+window.onload = cargarSabores;
 
 // Pantalla 1
 
@@ -93,27 +141,63 @@ function inicio(){
 
 }
 
-inicio();
 
-function sumar(contador) {
-    let cont = contador.previousSibling.valueAsNumber;
-    cont = cont + 1;
+function agregarEventos() {
+    let botonesSumar = document.querySelectorAll('.mas');
+    let botonesRestar = document.querySelectorAll('.menos');
 
-    if (cont <= 15) {
-        contador.previousSibling.valueAsNumber = cont;
-        let bichito = document.createElement('i');
-        bichito.classList.add("fa-solid", "fa-user-astronaut", "fa-xl")
-        document.getElementById('user').appendChild(bichito);
-    }
+    botonesSumar.forEach(boton => boton.addEventListener('click', sumar));
+    botonesRestar.forEach(boton => boton.addEventListener('click', restar));
 }
 
-function restar(contador) {
+inicio();
+agregarEventos();
+
+function sumar(event) {
+    let button = event.target;
+    let input = button.parentElement.previousElementSibling;
+    let cont = input.valueAsNumber;
+    cont = cont + 1;
+
+   if(input.classList.contains('pantalla1')){
+        if (cont <= 15) {
+            input.valueAsNumber = cont;
+
+            let bichito = document.createElement('i');
+            bichito.classList.add("fa-solid", "fa-user-astronaut", "fa-xl");
+            document.getElementById('user').appendChild(bichito);
+
+            habilitarSiguiente();
+
+        } 
+
+   }else {
+
+    input.valueAsNumber = cont;
+
+   }
+}
+
+function restar(event) {
+    let button = event.target;
+    let input = button.parentElement.nextElementSibling;
+    let cont = input.valueAsNumber;
     let user = document.getElementById('user');
-    if (contador.nextSibling.valueAsNumber < 1) {
+    cont = cont - 1;
+    
+    if (cont < 0) {
         return;
     } else {
-        contador.nextSibling.valueAsNumber = contador.nextSibling.valueAsNumber - 1;
-        user.removeChild(user.lastElementChild)
+      
+        input.valueAsNumber = cont;
+        
+        if(input.classList.contains('pantalla1')){
+            if (user.lastElementChild) {
+                user.removeChild(user.lastElementChild);
+            }
+
+            habilitarSiguiente();
+        }
     }
 }
 
@@ -165,6 +249,8 @@ function habilitarSiguiente(){
         }else{
             buttonSig1[0].setAttribute('disabled',"");
         }
+    }else{
+        buttonSig1[0].setAttribute('disabled',"");
     }
 }
 
@@ -396,31 +482,65 @@ function siguientePantalla2Bis(){
     
 }
 
-// custom y rellenar pedido
+// custom 
+function agregarEventosAClon(clon) {
+    let botonSumar = clon.querySelector('.mas');
+    let botonRestar = clon.querySelector('.menos');
 
-function addcustom(el){
-    let prod = el.parentElement.parentElement.id
+    botonSumar.addEventListener('click', function () {
+        sumar(botonSumar);
+    });
+
+    botonRestar.addEventListener('click', function () {
+        restar(botonRestar);
+    });
+}
+
+function addcustom(el) {
+    let prod = el.parentElement.parentElement.id;
     const node = document.getElementById("li-custom");
-    const clone = node.cloneNode(true);
+    const clone = node.cloneNode(true); // Clonar el nodo
 
-    if (prod == "seleccionEmpa"){
+    // Limpiar el valor y restablecer los atributos de nombre
+    let inputCustom = clone.querySelector('.custom');
+    inputCustom.value = '';
+    inputCustom.setAttribute("name", 'custom');
+    inputCustom.parentElement.nextElementSibling.children[1].name='custom';
+    clone.childNodes[3].childNodes[3].value='0';
+
+    // Deshabilitar los botones del clon hasta que se ingrese un nombre
+    let botones = clone.querySelectorAll('button');
+    botones.forEach(boton => boton.setAttribute('disabled', true));
+
+    if (prod == "seleccionEmpa") {
         document.getElementById("sabores-E").appendChild(clone);
-    } else if (prod == "seleccionPizza"){
+    } else if (prod == "seleccionPizza") {
         document.getElementById("sabores-P").appendChild(clone);
     }
 
+    agregarEventosAClon(clone);
 }
 
 function personalizarCustom(el){
     el.setAttribute("name", el.value);
     el.parentElement.nextElementSibling.children[1].name=el.value
+
+    // Habilitar botones si se ha ingresado un nombre
+    if (el.value.trim() !== "") {
+        let botones = el.parentElement.nextElementSibling.querySelectorAll('button');
+        botones.forEach(boton => boton.removeAttribute('disabled'));
+    } else {
+        let botones = el.parentElement.nextElementSibling.querySelectorAll('button');
+        botones.forEach(boton => boton.setAttribute('disabled', true));
+    }
 }
 
+// rellenar pedido
 function rellenoPedido(el){
 
     if(el == "seleccionEmpa"){
 
-        const pedidoComensal = new PedidoComensal(null, [], 0, false, 0); // nombre, array de empanadas, total de empanadas, comensal Pizza,  total a pagar //
+        const pedidoComensal = new PedidoComensal(idCounter++, null, [], 0, false, 0); // id, nombre, array de empanadas, total de empanadas, comensal Pizza,  total a pagar //
 
         let inputsE = document.getElementsByClassName("empanada");
 
@@ -606,13 +726,19 @@ function verDetalleResumen(){
         setTimeoutOpacity(detalleResumen,1, 500)
         detalleResumen.scrollIntoView({behavior: 'smooth'}, true);
 
-        resumenPedido.forEach(pedidoComensal => {
-        const nombre = document.createElement('H3');
-        nombre.classList.add("h3");
-        nombre.classList.add("resumen");
-        nombre.innerText=pedidoComensal.nombre;
+        detalleCont.innerHTML = ''; 
 
-        const ulPedido = document.createElement('UL');
+        resumenPedido.forEach(pedidoComensal => {
+            const nombre = document.createElement('H3');
+            nombre.classList.add("h3");
+            nombre.classList.add("resumen");
+            nombre.innerText=pedidoComensal.nombre;
+
+            const btnEditar = document.createElement('button');
+            btnEditar.innerHTML = 'Editar';
+            btnEditar.onclick = () => editarPedido(pedidoComensal.id);
+
+            const ulPedido = document.createElement('UL');
 
             pedidoComensal.listaEmpanadas.forEach(empanada => {
                 if(empanada.cantidad!=0){
@@ -637,9 +763,75 @@ function verDetalleResumen(){
             }
 
             detalleCont.appendChild(nombre);
+            detalleCont.appendChild(btnEditar);
             detalleCont.appendChild(ulPedido);
         });
     }, 500);
+}
+
+function editarPedido(id) {
+    // Buscar el pedido por id
+    const pedidoComensal = resumenPedido.find(pedido => pedido.id === id);
+    const botonSiguiente = document.getElementById('button-seleccion');
+    const eventoOriginal = botonSiguiente.onclick;
+
+    setTimeout(function() { 
+        if (pedidoComensal) {
+            // Mostrar la pantalla de edición con los datos cargados
+            detalleResumen.style.opacity="0"
+            detalleResumen.style.display = 'none';
+            seleccionEmpanadas.style.display = 'flex';
+            seleccionEmpanadas.style.opacity="1"
+            
+
+            const inputsE = document.getElementsByClassName("empanada");
+            for (let i = 0; i < inputsE.length; ++i) {
+                const empanadaName = inputsE[i].name;
+                const empanadaSeleccionada = pedidoComensal.listaEmpanadas.find(e => e.nombre === empanadaName);
+                inputsE[i].value = empanadaSeleccionada ? empanadaSeleccionada.cantidad : 0;
+            }
+
+        // Cambiar el texto y la funcionalidad del botón
+
+
+        botonSiguiente.innerText = "Finalizar Edición"; 
+        botonSiguiente.onclick = function() {
+            actualizarPedido(id); // Llamar a la función de actualización
+
+            // Restaurar el comportamiento original después de editar
+            botonSiguiente.innerText = "Siguiente";
+            botonSiguiente.onclick = eventoOriginal; // Volver al evento original
+        };
+        }
+    }, 500);
+}
+
+function actualizarPedido(id) {
+    const pedidoComensal = resumenPedido.find(pedido => pedido.id === id);
+
+    if (pedidoComensal) {
+        const inputsE = document.getElementsByClassName("empanada");
+        pedidoComensal.listaEmpanadas = [];
+        pedidoComensal.totalEmpanadas = 0;
+
+        for (let i = 0; i < inputsE.length; ++i) {
+            let empanada = new Empanada(inputsE[i].name, inputsE[i].valueAsNumber);
+            if (empanada.cantidad > 0) {
+                pedidoComensal.listaEmpanadas.push(empanada);
+                pedidoComensal.totalEmpanadas += empanada.cantidad;
+            }
+        }
+
+        // Actualizar la cantidad total en el resumen
+        resumenPedido = resumenPedido.map(pedido => pedido.id === id ? pedidoComensal : pedido);
+
+        document.querySelector(".resumen-empanadas").innerHTML = '';
+        document.querySelector(".resumen-pizza").innerHTML = '';
+        document.querySelector(".resumen-comensales").innerHTML = '';
+        document.querySelector(".total").innerHTML = '';
+
+        setFinalizar();
+    }
 }
 
 function volver(){

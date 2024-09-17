@@ -143,6 +143,7 @@ h4{
     overflow: auto;
     text-align: center;
     background-color: var(--backgroundcolor); 
+    scrollbar-width: none;
 }
 
 /* Pantalla 1 */ 
@@ -358,14 +359,34 @@ input.precio{
     width: 30px;
     border-radius: 20%;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mas >*, .menos >* {
+    height: 100%;
+    width: 100%;
+    align-content: center;
+}
+
+.mas ::before, .menos ::before {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 .menos:active, .mas:active {
     background-color: var(--focus);
 }
 
+
 div#user {
     display: flex;
+    align-items: center;
+    justify-content: center;
     margin: auto;
     padding: 20px;
 }
@@ -474,6 +495,10 @@ transition: background-color 5000s ease-in-out 0s;
 #sabores-E, #sabores-P, .resumen-comensales{
     margin: 25px 0;
 }
+
+#cargar-sabores-p, #cargar-sabores-e{
+    display: contents;
+}  
 
 ul.total{
     padding: 0;
@@ -645,7 +670,9 @@ ul.resumen-comensales li:first-of-type{
     color: var(--focus);
 }
 
-
+.scroll-width-thin {
+    scrollbar-width: thin;
+}
 
 ::-webkit-scrollbar {
     background-color: var(--backgroundcolor);
