@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Empa-Pick es la app perfecta para organizar pedidos de empanadas y pizzas con tus amigos. Recolecta las elecciones individuales, divide los gastos y agrupa el pedido. ¡Fácil y rápido!">
-  <meta property="og:title" content="Empa-Pick: La App Ideal para Organizar Pedidos de Empanadas y Pizzas">
-  <meta property="og:description" content="Empa-Pick es la app perfecta para organizar pedidos de empanadas y pizzas con tus amigos. Recolecta las elecciones individuales, divide los gastos y agrupa el pedido. ¡Fácil y rápido!">
-  <meta property="og:image" content="URL de una imagen representativa">
-  <meta property="og:url" content="https://empa-pick.netlify.app/">
-  <title>Empa-Pick: La App para Organizar Pedidos de Empanadas y Pizza con amigos</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Montserrat:wght@400;500&family=Orbitron:wght@400;600;900&family=Roboto+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="icon" type="image/x-icon" href="img/empanada-icon.png">
-  <script src="https://kit.fontawesome.com/270cc5acdb.js" crossorigin="anonymous"></script>
-  <script type="application/ld+json">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description"
+		content="Empa-Pick es la app perfecta para organizar pedidos de empanadas y pizzas con tus amigos. Recolecta las elecciones individuales, divide los gastos y agrupa el pedido. ¡Fácil y rápido!">
+	<meta property="og:title" content="Empa-Pick: La App Ideal para Organizar Pedidos de Empanadas y Pizzas">
+	<meta property="og:description"
+		content="Empa-Pick es la app perfecta para organizar pedidos de empanadas y pizzas con tus amigos. Recolecta las elecciones individuales, divide los gastos y agrupa el pedido. ¡Fácil y rápido!">
+	<meta property="og:image" content="URL de una imagen representativa">
+	<meta property="og:url" content="https://empa-pick.netlify.app/">
+	<title>Empa-Pick: La App para Organizar Pedidos de Empanadas y Pizza con amigos</title>
+	<link rel="stylesheet" href="style.css">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Montserrat:wght@400;500&family=Orbitron:wght@400;600;900&family=Roboto+Mono&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="icon" type="image/x-icon" href="img/empanada-icon.png">
+	<script src="https://kit.fontawesome.com/270cc5acdb.js" crossorigin="anonymous"></script>
+	<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Application",
@@ -24,177 +29,182 @@
     }
     </script>
 </head>
-<body>
-  <section class="back">
-    <div id="border">
-      <div id="container">
-        <header id="header">
-          <h1>EMPA-PICK<a class="meteor"><i class="fa-solid fa-meteor"></i></a></h1>
-        </header>
-        <main class="main"> 
-          <section id="inicio">
-            <div>
-              <p>pick</p>
-              <p>split</p>
-              <p>eat</p>
-            </div>
-          </section>
-          <!--pantalla 1-->
-          <section id="pantalla-1">
-            <div class="pregunta">
-              <p>Cuantas personas van a pedir?</p>
-              <div class="contador">
-                <button class="menos pantalla1" type="button"><i class="fa-solid fa-minus"></i></button>  
-                <input id="comensales" class="number pantalla1" type="number"  value='1'  readonly="readonly">   
-                <button class="mas pantalla1" type="button" ><i class="fa-solid fa-plus"></i></button>
-              </div>     
-              <div id="user"><i class="fa-solid fa-user-astronaut fa-xl nombre" style="color:#ffffff"></i></div>
-            </div>
-            <div class="selec-prod">
-              <p class="pregunta">Que van a comer?</p>
-              <div>
-                <span class="i-pizza">
-                  <label for="check-pizza"><img src="img/pizza.png" alt="icono de pizza"></label>
-                  <input name="check-pizza" id="check-pizza" type="checkbox" value="check-pizza" onclick="prodCheck(this); habilitarSiguiente()"/>
-                  
-                </span>
-                <span class="empa">
-                  <label for="check-empa"><img src="img/empa.png" alt="icono de empanada"></label>
-                  <input name="check-empa" id="check-empa" type="checkbox" value="check-empa" onclick="prodCheck(this); habilitarSiguiente()" />
-                </span>
-            </div>
-            </div>
-            <div class="valor-prod">
-              <p class="pregunta minimo">Según el lugar donde van a pedir, cual es el valor de...</p>
-              <div class="precios">
-                <span>
-                  <p class="requerido-p">*</p>
-                  <p class="valor-prod-p">cada pizza</p>
-                  <div>
-                    <span class="$">$ </span>
-                    <input class="number precio" type="number" id="valorPizza">
-                  </div>
-                </span>
-                <span>
-                  <p class="requerido-e">*</p>
-                  <p class="valor-prod-p">cada empanada</p>
-                  <div>
-                    <span class="$">$ </span>
-                    <input class="number precio" type="number" id="valorEmpanada">
-                  </div>
-                </span>
-              </div>
-            </div>
-            <div class="div-button">
-              <button class="button-sig-1 button" onClick="transition()" disabled>Siguiente</button>
-            </div>
-          </section>
-          <!---->
-          <section id="transition-empa" class="transition">
-            <div class="transtion-cont">
-              <p>Cuantos van a comer empanadas?</p>
-              <input class="number" type="number" id="cant-comensales-empa">
-              <p id="transition-empa-error"></p>
-              <button id="button-transition-empa" class="button button-transition" disabled onclick="siguientePantalla2()"><i class="fa-solid fa-check"></i></button>
-            </div>
-          </section>
-          <!---->
-          <!--pantalla 2 / seleccion empanadas-->
-          <section id="seleccionEmpa">
-            <h3>Empanadas</h3>
-            <label for="nombre" class="label-nombre"><i class="fa-solid fa-user-astronaut fa-xl nombre"
-                style="color:#ffffff"></i><input id="nombre" placeholder="Nombre:" name="nombre" class="nombre"></label>
-            <ul id="sabores-E">
-              <span id="cargar-sabores-e"></span>            
-              <!--custom-->
-              <li id="li-custom" class="li-custom-nombre">
-                <label for="custom" class="label-empanada">
-                  <input id= "custom-nombre" class="custom" type="text" name="custom" placeholder="ingrese un sabor" onchange="personalizarCustom(this)">
-                </label>
-                <span>
-                  <button type="button" class="menos" disabled><i class="fa-solid fa-minus"></i></button>
-                  <input class="number empanada customm" name="custom" type="number" value='0' readonly>
-                  <button class="mas" type="button" disabled><i class="fa-solid fa-plus"></i></button>
-                </span>
-                </li>
-              </ul>
-              <label for="custom" class=" label-custom">
-                <button class="custom-button" onClick="addcustom(this)"> + </button>
-              </label>            
-            <span class="button-sig-2">
-              <button id="button-seleccion" class="button" onClick="bucleEmpa(this)">Siguiente</button>
-            </span>
-          </section>
-          <!---->
-          <section id="transition-pizza" class="transition">
-            <div class="transtion-cont">
-              <p>¿Quienes van a comer Pizza?</p>
-              <ul id="li-comensales">
-              </ul>
-              <div id="dif-cont">
-                <p id="dif-comensales"></p>
-              </div>
-              <button id="button-transition-pizza" class="button button-transition" disabled onclick="siguientePantalla2Bis()"><i class="fa-solid fa-check"></i></button>
-            </div>
-          </section>
-          <!---->
-          <!--pantalla 2Bis / seleccion pizzas-->
-          <section id="seleccionPizza">
-            <h3>Pizzas</h3>
-            <ul id="sabores-P">
-              <span id="cargar-sabores-p"></span>          
-              <!--custom-->
-              <li id="li-custom" class="li-custom-nombre">
-                <label for="custom" class="label-empanada">
-                  <input id= "custom-nombre" class="custom" type="text" name="custom" placeholder="ingrese un sabor" onchange="personalizarCustom(this)">
-                </label>
-                <span>
-                  <button type="button" class="menos" ><i class="fa-solid fa-minus"></i></button>
-                    <input class="number pizza customm" name="custom" type="number" value='0' readonly>
-                  <button  class="mas" type="button" onClick="sumar(this)"><i class="fa-solid fa-plus"></i></button>
-                </span>
-              </li>   
-            </ul>
-            <label for="custom" class=" label-custom">
-              <button class="custom-button" onClick="addcustom(this)"> + </button>
-            </label>
-            <span class="button-sig-3">
-              <button id="button-seleccionPizza" class="button" onClick="rellenoPedido(this)">Finalizar</button>
-            </span>
-          </section>
-        <section id="resumen"><!--pantalla 3 / resumen-->
-          <h2>RESUMEN</h2>
-          <div>
-            <ul class="resumen-empanadas">       
-            </ul>
-          </div>
-          <div>
-            <ul class="resumen-pizza">       
-            </ul>
-          </div>
-          <div>
-            <h3 class="border-top">$$</h3>
-            <ul class="resumen-comensales">
-              <li><label id="nom-comensal" for="cant-sabor"></label><span><input id="cant-sabor" name="cant-sabor" type="number"
-                    class="number n-resumen" readonly="readonly"></span></li>
-            </ul>
-            <ul class="total">
-              <label></label><span><input class="number"></span>
-            </ul>
-          </div>
-          <button id="ver-resumen" class="button" onclick="verDetalleResumen()">Ver más detalles</button>
-        </section>
-        <section id="resumen-detalle">
-          <div id="detalle-cont">
 
-          </div>
-          <button id="volver" class="button" onclick="volver()">Volver</button>
-        </section>
-        </main>
-      </div>
-    </div>
-    </div>
-  </section>
+<body>
+	<section class="back">
+		<div id="border">
+			<div id="container">
+				<header id="header">
+					<h1>EMPA-PICK<a class="meteor"><i class="fa-solid fa-meteor"></i></a></h1>
+				</header>
+				<main class="main">
+					<section id="inicio">
+						<div>
+							<p>pick</p>
+							<p>split</p>
+							<p>eat</p>
+						</div>
+					</section>
+					<!--pantalla 1-->
+					<section id="pantalla-1">
+						<div class="pregunta">
+							<p>Cuantas personas van a pedir?</p>
+							<div class="contador">
+								<button class="menos pantalla1" type="button"><i class="fa-solid fa-minus"></i></button>
+								<input id="comensales" class="number pantalla1" type="number" value='1' readonly="readonly">
+								<button class="mas pantalla1" type="button"><i class="fa-solid fa-plus"></i></button>
+							</div>
+							<div id="user"><i class="fa-solid fa-user-astronaut fa-xl nombre" style="color:#ffffff"></i>
+							</div>
+						</div>
+						<div class="selec-prod">
+							<p class="pregunta">Que van a comer?</p>
+							<div>
+								<span class="i-pizza">
+									<label for="check-pizza"><img src="img/pizza.png" alt="icono de pizza"></label>
+									<input name="check-pizza" id="check-pizza" type="checkbox" value="check-pizza" onclick="prodCheck(this); habilitarSiguiente()" />
+								</span>
+								<span class="empa">
+									<label for="check-empa"><img src="img/empa.png" alt="icono de empanada"></label>
+									<input name="check-empa" id="check-empa" type="checkbox" value="check-empa" onclick="prodCheck(this); habilitarSiguiente()" />	
+								</span>
+							</div>
+						</div>
+						<div class="valor-prod">
+							<p class="pregunta minimo">Según el lugar donde van a pedir, cual es el valor de...</p>
+							<div class="precios">
+								<span>
+									<p class="requerido-p">*</p>
+									<p class="valor-prod-p">cada pizza</p>
+									<div>
+										<span class="$">$ </span>
+										<input class="number precio" type="number" id="valorPizza">
+									</div>
+								</span>
+								<span>
+									<p class="requerido-e">*</p>
+									<p class="valor-prod-p">cada empanada</p>
+									<div>
+										<span class="$">$ </span>
+										<input class="number precio" type="number" id="valorEmpanada">
+									</div>
+								</span>
+							</div>
+						</div>
+						<div class="div-button">
+							<button class="button-sig-1 button" onClick="transition()" disabled>Siguiente</button>
+						</div>
+					</section>
+					<!---->
+					<section id="transition-empa" class="transition">
+						<div class="transtion-cont">
+							<p>Cuantos van a comer empanadas?</p>
+							<input class="number" type="number" id="cant-comensales-empa">
+							<p id="transition-empa-error"></p>
+							<button id="button-transition-empa" class="button button-transition" disabled
+								onclick="siguientePantalla2()"><i class="fa-solid fa-check"></i></button>
+						</div>
+					</section>
+					<!---->
+					<!--pantalla 2 / seleccion empanadas-->
+					<section id="seleccionEmpa">
+						<h3>Empanadas</h3>
+						<label for="nombre" class="label-nombre"><i class="fa-solid fa-user-astronaut fa-xl nombre" style="color:#ffffff"></i><input id="nombre" placeholder="Nombre:" name="nombre" class="nombre"></label>
+						<ul id="sabores-E">
+							<span id="cargar-sabores-e"></span>
+							<!--custom-->
+							<li id="li-custom" class="li-custom-nombre">
+								<label for="custom" class="label-empanada">
+									<input id="custom-nombre" class="custom" type="text" name="custom" 	placeholder="ingrese un sabor" onchange="personalizarCustom(this)">
+								</label>
+								<span>
+									<button type="button" class="menos" disabled><i class="fa-solid fa-minus"></i></button>
+									<input class="number empanada customm" name="custom" type="number" value='0' readonly>
+									<button class="mas" type="button" disabled><i class="fa-solid fa-plus"></i></button>
+								</span>
+							</li>
+						</ul>
+						<label for="custom" class=" label-custom">
+							<button class="custom-button" onClick="addcustom(this)"> + </button>
+						</label>
+						<span class="button-sig-2">
+							<button id="button-seleccion" class="button" onClick="bucleEmpa(this)">Siguiente</button>
+						</span>
+					</section>
+					<!---->
+					<section id="transition-pizza" class="transition">
+						<div class="transtion-cont">
+							<p>¿Quienes van a comer Pizza?</p>
+							<ul id="li-comensales">
+							</ul>
+							<div id="dif-cont">
+								<p id="dif-comensales"></p>
+							</div>
+							<button id="button-transition-pizza" class="button button-transition" disabled
+								onclick="siguientePantalla2Bis()"><i class="fa-solid fa-check"></i></button>
+						</div>
+					</section>
+					<!---->
+					<!--pantalla 2Bis / seleccion pizzas-->
+					<section id="seleccionPizza">
+						<h3>Pizzas</h3>
+						<ul id="sabores-P">
+							<span id="cargar-sabores-p"></span>
+							<!--custom-->
+							<li id="li-custom" class="li-custom-nombre">
+								<label for="custom" class="label-empanada">
+									<input id="custom-nombre" class="custom" type="text" name="custom"
+										placeholder="ingrese un sabor" onchange="personalizarCustom(this)">
+								</label>
+								<span>
+									<button type="button" class="menos"><i class="fa-solid fa-minus"></i></button>
+									<input class="number pizza customm" name="custom" type="number" value='0' readonly>
+									<button class="mas" type="button" onClick="sumar(this)"><i class="fa-solid fa-plus"></i></button>		
+								</span>
+							</li>
+						</ul>
+						<label for="custom" class=" label-custom">
+							<button class="custom-button" onClick="addcustom(this)"> + </button>
+						</label>
+						<span class="button-sig-3">
+							<button id="button-seleccionPizza" class="button" onClick="rellenoPedido(this)">Finalizar</button>
+						</span>
+					</section>
+					<section id="resumen"><!--pantalla 3 / resumen-->
+						<h2>RESUMEN</h2>
+						<div>
+							<ul class="resumen-empanadas">
+							</ul>
+						</div>
+						<div>
+							<ul class="resumen-pizza">
+							</ul>
+						</div>
+						<div>
+							<h3 class="border-top">$$</h3>
+							<ul class="resumen-comensales">
+								<li><label id="nom-comensal" for="cant-sabor"></label><span><input id="cant-sabor"
+											name="cant-sabor" type="number" class="number n-resumen" readonly="readonly"></span>
+								</li>
+							</ul>
+							<ul class="total">
+								<label></label><span><input class="number"></span>
+							</ul>
+						</div>
+						<button id="ver-resumen" class="button" onclick="verDetalleResumen()">Ver más detalles</button>
+					</section>
+					<section id="resumen-detalle">
+						<div id="detalle-cont">
+
+						</div>
+						<button id="volver" class="button" onclick="volver()">Volver</button>
+					</section>
+				</main>
+			</div>
+		</div>
+		</div>
+	</section>
 </body>
 <script src="codigo.js"></script>
+
 </html>

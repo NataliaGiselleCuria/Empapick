@@ -71,10 +71,9 @@ function Pizza(nombre, cantidad){
 let idCounter = 0;
 let comensales=[];
 let resumenPedido=[];
-let listaFinalE =[Empanada];
+let listaFinalE =[];
 let listaFinalP = [Pizza];
 let totalFinalPagar = 0;
-let ListaFinalClean=[];
 
 
 async function cargarSabores() {
@@ -116,8 +115,6 @@ async function cargarSabores() {
 
     agregarEventos();
 }
-
-// Cargar los sabores cuando se carga la página
 window.onload = cargarSabores;
 
 // Pantalla 1
@@ -140,7 +137,6 @@ function inicio(){
     setTimeoutOpacity(pantalla1,1,4000)
 
 }
-
 
 function agregarEventos() {
     let botonesSumar = document.querySelectorAll('.mas');
@@ -473,10 +469,10 @@ function siguientePantalla2Bis(){
 
     }else{
         for (let i=0; i < inputComensalesP.length; i++){
-            const pedidoComensal = new PedidoComensal(null, [], 0, false, 0); // nombre, array de empanadas, total de empanadas, comensal Pizza,  total a pagar //
+            const pedidoComensal = new PedidoComensal( idCounter++, null, [], 0, false, 0); // id, nombre, array de empanadas, total de empanadas, comensal Pizza,  total a pagar //
             pedidoComensal.nombre = inputComensalesP[i].value;
             pedidoComensal.comensaleP = true;
-    
+            
             resumenPedido.push(pedidoComensal);
         }
     
@@ -540,62 +536,72 @@ function personalizarCustom(el){
 }
 
 // rellenar pedido
-function rellenoPedido(el){
+function rellenoPedido(el) {
+    if (el == "seleccionEmpa") {
 
-    if(el == "seleccionEmpa"){
-
-        const pedidoComensal = new PedidoComensal(idCounter++, null, [], 0, false, 0); // id, nombre, array de empanadas, total de empanadas, comensal Pizza,  total a pagar //
+        const pedidoComensal = new PedidoComensal(idCounter++, null, [], 0, false, 0); // id, nombre, lista de empanadas, total empanadas, comensal de pizza, total a pagar
 
         let inputsE = document.getElementsByClassName("empanada");
-
         pedidoComensal.nombre = document.getElementById("nombre").value;
 
         for (let i = 0; i < inputsE.length; ++i) {
-            let empanada = new Empanada(null, 0);
-            empanada.nombre = inputsE[i].name;
-            empanada.cantidad = inputsE[i].value;
-            pedidoComensal.totalEmpanadas += inputsE[i].valueAsNumber;
-            pedidoComensal.listaEmpanadas.push(empanada);
+            let cantidadEmpanada = inputsE[i].valueAsNumber;
+
+            if (cantidadEmpanada > 0) {
+                let empanada = new Empanada(null, cantidadEmpanada);
+                empanada.nombre = inputsE[i].name;
+                pedidoComensal.totalEmpanadas += cantidadEmpanada;
+                pedidoComensal.listaEmpanadas.push(empanada);
+            }
         }
 
-        pedidoComensal.totalPagar= (pedidoComensal.totalEmpanadas*valorEmpanada.value);
-        totalFinalPagar+=pedidoComensal.totalPagar;
+        pedidoComensal.totalPagar = pedidoComensal.totalEmpanadas * valorEmpanada.value;
+        totalFinalPagar += pedidoComensal.totalPagar;
         resumenPedido.push(pedidoComensal);
 
-        if(checkPizza.checked && checkEmpanada.checked){
-
+        if (checkPizza.checked && checkEmpanada.checked) {
             comensales.push(pedidoComensal.nombre);
         }
 
-    }else{
-
+    } else {
         let inputsP = document.getElementsByClassName("pizza");
         let cantPizza = 0;
 
-        for (let i = 0; i<inputsP.length; i++){
-            let pizza = new Pizza(null, 0);
-            pizza.nombre = inputsP[i].name;
-            pizza.cantidad = inputsP[i].value;
-            listaFinalP.push(pizza);
+        for (let i = 0; i < inputsP.length; i++) {
+            let cantidadPizza = inputsP[i].valueAsNumber;
 
-            cantPizza+= inputsP[i].valueAsNumber;
+            if (cantidadPizza > 0) {
+                let pizza = new Pizza(null, cantidadPizza);
+                pizza.nombre = inputsP[i].name;
+                listaFinalP.push(pizza);
+                cantPizza += cantidadPizza;  // Sumamos la cantidad de pizzas
+            }
         }
 
-        totalFinalPagar += cantPizza*valorPizza.value;
+        // Inicializamos la cuenta de comensales de pizza
+        let cantComensalesP = 0;
 
+        // Contamos los comensales que seleccionaron pizza
         resumenPedido.forEach(pedidoComensal => {
-            if(pedidoComensal.comensaleP){
-                cantComensalesP++
+            if (pedidoComensal.comensaleP) {
+                cantComensalesP++;
             }
         });
 
-        let divisionPizza = (cantPizza*valorPizza.value)/cantComensalesP;
+        // Evitamos división por 0
+        if (cantComensalesP > 0) {
+            let divisionPizza = (cantPizza * valorPizza.value) / cantComensalesP;
 
-        resumenPedido.forEach(pedidoComensal => {
-            if(pedidoComensal.comensaleP){
-                pedidoComensal.totalPagar+= divisionPizza;
-            }
-        });
+            resumenPedido.forEach(pedidoComensal => {
+                if (pedidoComensal.comensaleP) {
+                    // Sumamos el costo de pizza al total del comensal
+                    pedidoComensal.totalPagar += divisionPizza;
+                }
+            });
+
+            // Sumamos el costo de las pizzas al total final a pagar
+            totalFinalPagar += cantPizza * valorPizza.value;
+        }
 
         setFinalizar();
     }
@@ -611,21 +617,25 @@ function setFinalizar() {
         resumen.style.display = "flex";
         setTimeoutOpacity(resumen,1,500);
 
-        if(checkEmpanada.checked){
-            listaFinalE = resumenPedido[0].listaEmpanadas
+        for (let i = 0; i < resumenPedido.length; i++) {
+            const empanadasComensal = resumenPedido[i].listaEmpanadas;
 
-            for (let i = 1; i < resumenPedido.length; i++) {
-                const empanadas = resumenPedido[i].listaEmpanadas;
-                for (let index = 0; index < empanadas.length; index++) {
-                    if(listaFinalE[index]==undefined){
-                        listaFinalE.push(empanadas[index]);
-                    }else{
-                        listaFinalE[index].cantidad = parseInt(empanadas[index].cantidad, 10) + parseInt(listaFinalE[index].cantidad, 10);
-                    }
-                };
-            }
-        
-            ListaFinalClean = listaFinalE.filter(empanadas => empanadas.cantidad > 0);
+            // Para cada empanada de un comensal
+            empanadasComensal.forEach(empanadaComensal => {
+                // Verificar si ya existe en listaFinalE
+                let empanadaExistente = listaFinalE.find(empanada => empanada.nombre === empanadaComensal.nombre);
+
+                if (empanadaExistente) {
+                    // Si existe, sumamos la cantidad
+                    empanadaExistente.cantidad += empanadaComensal.cantidad;
+                } else {
+                    // Si no existe, la agregamos al array
+                    listaFinalE.push({
+                        nombre: empanadaComensal.nombre,
+                        cantidad: empanadaComensal.cantidad
+                    });
+                }
+            });
         }
 
         pantalla3();
@@ -682,7 +692,7 @@ function pantalla3(){
         contenedorPizza.style.marginBottom="25px";
     }
 
-    ListaFinalClean.forEach(element => {
+    listaFinalE.forEach(element => {
         const itemSabor = document.createElement('LI');
         itemSabor.classList.add("li-resumen")
         itemSabor.innerHTML = '<label>'+element.nombre+'</label><span><input type="number" class="number n-resumen" value="'+element.cantidad+'"></span>'.trim();
@@ -733,14 +743,18 @@ function verDetalleResumen(){
         detalleCont.innerHTML = ''; 
 
         resumenPedido.forEach(pedidoComensal => {
+            const resumenPedidoCont = document.createElement('div');
+            resumenPedidoCont.classList.add("resumenPedidoCont");
+
             const nombre = document.createElement('H3');
             nombre.classList.add("h3");
             nombre.classList.add("resumen");
             nombre.innerText=pedidoComensal.nombre;
 
-            const btnEditar = document.createElement('button');
-            btnEditar.innerHTML = 'Editar';
-            btnEditar.onclick = () => editarPedido(pedidoComensal.id);
+            // const btnEditar = document.createElement('button');
+            // btnEditar.innerHTML = 'Editar pedido';
+            // btnEditar.classList.add("editar-pedido");
+            // btnEditar.onclick = () => editarPedido(pedidoComensal.id);
 
             const ulPedido = document.createElement('UL');
 
@@ -766,77 +780,14 @@ function verDetalleResumen(){
                 ulPedido.appendChild(liPizza);
             }
 
-            detalleCont.appendChild(nombre);
-            detalleCont.appendChild(btnEditar);
-            detalleCont.appendChild(ulPedido);
+            resumenPedidoCont.appendChild(nombre);
+            // resumenPedidoCont.appendChild(btnEditar);
+            resumenPedidoCont.appendChild(ulPedido);
+            detalleCont.appendChild(resumenPedidoCont)
         });
     }, 500);
 }
 
-function editarPedido(id) {
-    // Buscar el pedido por id
-    const pedidoComensal = resumenPedido.find(pedido => pedido.id === id);
-    const botonSiguiente = document.getElementById('button-seleccion');
-    const eventoOriginal = botonSiguiente.onclick;
-
-    setTimeout(function() { 
-        if (pedidoComensal) {
-            // Mostrar la pantalla de edición con los datos cargados
-            detalleResumen.style.opacity="0"
-            detalleResumen.style.display = 'none';
-            seleccionEmpanadas.style.display = 'flex';
-            seleccionEmpanadas.style.opacity="1"
-            
-
-            const inputsE = document.getElementsByClassName("empanada");
-            for (let i = 0; i < inputsE.length; ++i) {
-                const empanadaName = inputsE[i].name;
-                const empanadaSeleccionada = pedidoComensal.listaEmpanadas.find(e => e.nombre === empanadaName);
-                inputsE[i].value = empanadaSeleccionada ? empanadaSeleccionada.cantidad : 0;
-            }
-
-        // Cambiar el texto y la funcionalidad del botón
-
-
-        botonSiguiente.innerText = "Finalizar Edición"; 
-        botonSiguiente.onclick = function() {
-            actualizarPedido(id); // Llamar a la función de actualización
-
-            // Restaurar el comportamiento original después de editar
-            botonSiguiente.innerText = "Siguiente";
-            botonSiguiente.onclick = eventoOriginal; // Volver al evento original
-        };
-        }
-    }, 500);
-}
-
-function actualizarPedido(id) {
-    const pedidoComensal = resumenPedido.find(pedido => pedido.id === id);
-
-    if (pedidoComensal) {
-        const inputsE = document.getElementsByClassName("empanada");
-        pedidoComensal.listaEmpanadas = [];
-        pedidoComensal.totalEmpanadas = 0;
-
-        for (let i = 0; i < inputsE.length; ++i) {
-            let empanada = new Empanada(inputsE[i].name, inputsE[i].valueAsNumber);
-            if (empanada.cantidad > 0) {
-                pedidoComensal.listaEmpanadas.push(empanada);
-                pedidoComensal.totalEmpanadas += empanada.cantidad;
-            }
-        }
-
-        // Actualizar la cantidad total en el resumen
-        resumenPedido = resumenPedido.map(pedido => pedido.id === id ? pedidoComensal : pedido);
-
-        document.querySelector(".resumen-empanadas").innerHTML = '';
-        document.querySelector(".resumen-pizza").innerHTML = '';
-        document.querySelector(".resumen-comensales").innerHTML = '';
-        document.querySelector(".total").innerHTML = '';
-
-        setFinalizar();
-    }
-}
 
 function volver(){
    

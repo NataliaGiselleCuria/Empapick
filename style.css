@@ -670,6 +670,24 @@ ul.resumen-comensales li:first-of-type{
     color: var(--focus);
 }
 
+.resumenPedidoCont {
+    position: relative;
+}
+
+button.editar-pedido {
+    position: absolute;
+    top: 0;
+    right: 0px;
+    text-transform: uppercase;
+    padding: 4px;
+    font-family: 'Montserrat';
+    border: 2px solid #664f62;
+    border-radius: 4px;
+    background: none;
+    color: white;
+    cursor: pointer;
+}
+
 .scroll-width-thin {
     scrollbar-width: thin;
 }
@@ -683,6 +701,8 @@ ul.resumen-comensales li:first-of-type{
 background: var(--border);
 border-radius: 10px;
 }
+
+
 
 @media (max-width: 645px) {
     :root{
