@@ -15,7 +15,7 @@
 }
 
 html {
-    height: 100svh;
+    height: 100dvh;
     font-family: 'Montserrat', sans-serif !important;
     color:white;
     text-shadow: 4px 3px 2px var(--shadow);
@@ -33,7 +33,7 @@ body {
 
 .back{
     width: 100vw;
-    height: 100svh;
+    height: 100dvh;
     margin: auto;
     display: flex;
     background-image: url(img/fondo.png);
@@ -41,6 +41,20 @@ body {
     background-size: 20%;
     animation: mymove 15s ease-in 5s infinite alternate;
     overflow: hidden;
+    position: relative;
+}
+
+.portfolio{
+    position: absolute;
+    bottom: 5px;
+    width: 100dvw;
+    text-align: center;
+    text-decoration: none;
+    color: #9b71948a;
+}
+
+.portfolio span{
+    font-weight: 500;
 }
 
 @keyframes mymove {
@@ -61,12 +75,12 @@ body {
 
 #border{
     width: 80%;
-    height: 85vh;
+    height: 90dvh;
     display: flex;
     flex-direction: column;
     max-width: 600px;
-    
     margin: auto;
+    margin-bottom: 35px;
     box-shadow: 0 0 .2rem #fff,
     0 0 .2rem #fff,
     0 0 2rem #bc13fe,
@@ -149,7 +163,7 @@ h4{
 /* Pantalla 1 */ 
 
 #inicio, #transition, #pantalla-1, #seleccionEmpa, #seleccionPizza, #resumen, #resumen-detalle{
-    /* height: 80svh; */
+   
     width: 90%;
     margin: auto;
     display: flex;
@@ -711,7 +725,6 @@ border-radius: 10px;
 
     #border {
         width: 90%;
-        height: 85vh;
     }
 
     .back{
